@@ -1,6 +1,7 @@
-import app from './app';
-const PORT = 3000;
+import { App } from './app';
+import { controllers } from './controllers';
 
-app.listen(PORT, () => {
-  console.log(`Express server listening on port ${PORT}`);
-})
+const PORT = 3000;
+const app = new App(controllers, PORT);
+
+app.listen();
