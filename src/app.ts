@@ -1,6 +1,6 @@
-import * as express from 'express';
-import * as bodyParser from 'body-parser';
-import { Controller } from './interfaces/controller.interface';
+import * as express from "express";
+import * as bodyParser from "body-parser";
+import { Controller } from "./interfaces/controller.interface";
 
 export class App {
   app: express.Application;
@@ -27,7 +27,7 @@ export class App {
 
   private initializeControllers(controllers: Controller[]) {
     controllers.forEach(controller => {
-      this.app.use('/', controller.router);
+      this.app.use("/", controller.router);
     });
   }
 }
