@@ -16,7 +16,27 @@ export class RecipeController {
     return response.json(recipe);
   }
 
+  public postRecipe(request: Request, response: Response) {
+    const body = request.body;
+    return response.json(body);
+  }
+
   public getRecipes(request: Request, response: Response) {
-    return response.json([{}]);
+    const query = request.query;
+    const limit = query.limit;
+    const offset = query.offset;
+
+    return response.json([
+      {
+        id: 1,
+        limit,
+        offset
+      },
+      {
+        id: 2,
+        limit,
+        offset
+      }
+    ]);
   }
 }
