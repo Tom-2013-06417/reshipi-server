@@ -1,17 +1,18 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
-import { Controller } from "./interfaces/controller.interface";
+import { Routes } from "./routes";
+import { RouterInterface } from "./interfaces/router.interface";
 
 export class App {
   app: express.Application;
   port: number;
 
-  constructor(controllers, port) {
+  constructor(port: number) {
     this.app = express();
     this.port = port;
 
     this.initializeMiddleware();
-    this.initializeControllers(controllers);
+    this.initializeRoutes(Routes);
   }
 
   listen() {
@@ -25,9 +26,7 @@ export class App {
     this.app.use(bodyParser.urlencoded({ extended: false }));
   }
 
-  private initializeControllers(controllers: Controller[]) {
-    controllers.forEach(controller => {
-      this.app.use("/", controller.router);
-    });
+  private initializeRoutes(routes: ReadonlyArray<RouterInterface>): void {
+    routes.forEach(route => route.routes(this.app));
   }
 }
