@@ -1,5 +1,4 @@
 import * as express from "express";
-import * as bodyParser from "body-parser";
 import { Routes } from "./routes";
 import { RouterInterface } from "./interfaces/router.interface";
 
@@ -11,7 +10,6 @@ export class App {
     this.app = express();
     this.port = port;
 
-    this.initializeMiddleware();
     this.initializeRoutes(Routes);
   }
 
@@ -21,12 +19,7 @@ export class App {
     });
   }
 
-  private initializeMiddleware() {
-    this.app.use(bodyParser.json());
-    this.app.use(bodyParser.urlencoded({ extended: false }));
-  }
-
-  private initializeRoutes(routes: ReadonlyArray<RouterInterface>): void {
+  private initializeRoutes(routes: readonly RouterInterface[]): void {
     routes.forEach(route => route.routes(this.app));
   }
 }
