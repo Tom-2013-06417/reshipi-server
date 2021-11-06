@@ -1,2 +1,2 @@
-export * from './resolvers';
-export * from './types';
+export * from './recipes.resolvers';
+export * from './recipes.types';

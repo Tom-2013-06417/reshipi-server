@@ -1,7 +1,8 @@
-import { booksResolver } from './recipes';
+import { recipeArticleResolver, recipeArticlesResolver } from './recipes';
 
 export const resolvers = {
   Query: {
-    books: booksResolver,
+    recipeArticles: recipeArticlesResolver,
+    recipeArticle: recipeArticleResolver,
   }
 }
