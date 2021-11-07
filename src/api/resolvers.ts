@@ -1,5 +1,5 @@
 import { articleResolver, articlesResolver, createArticle } from './articles';
-import { recipeResolver, recipesResolver } from './recipes';
+import { recipeResolver, recipesResolver, createRecipe } from './recipes';
 
 export const resolvers = {
   Query: {
@@ -10,5 +10,6 @@ export const resolvers = {
   },
   Mutation: {
     createArticle,
-  }
-}
+    createRecipe,
+  },
+};

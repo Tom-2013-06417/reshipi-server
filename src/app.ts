@@ -6,6 +6,7 @@ import { schema } from "./api";
 import { mongo } from "./database/mongodb";
 import Articles from "./api/articles/articles.model";
 import { Db } from "mongodb";
+import Recipes from "./api/recipes/recipes.model";
 
 export class App {
   private app: express.Application;
@@ -29,6 +30,7 @@ export class App {
       schema,
       dataSources: () => ({
         articles: new Articles(this.db.collection("articles")),
+        recipes: new Recipes(this.db.collection("recipes")),
       }),
       plugins: [
         ApolloServerPluginDrainHttpServer({ httpServer: this.httpServer }),

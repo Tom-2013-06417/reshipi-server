@@ -28,4 +28,31 @@ export const RecipeTypes = gql`
     id: Int
     value: String
   }
+
+  type Mutation {
+    createRecipe(recipe: RecipeRequest): RecipeResponse!
+  }
+
+  input RecipeRequest {
+    title: String
+    description: String
+    ingredients: [IngredientRequest]
+    steps: [RecipeStepRequest]
+  }
+
+  input IngredientRequest {
+    id: Int
+    amount: String
+    name: String
+  }
+
+  input RecipeStepRequest {
+    value: String
+  }
+
+  type RecipeResponse {
+    status: Boolean!
+    message: String
+    body: [Recipe]
+  }
 `;

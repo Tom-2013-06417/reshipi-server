@@ -1,3 +1,40 @@
+import { MongoDataSource } from "apollo-datasource-mongodb";
+import { ObjectId } from "mongodb";
+
+export interface Recipe {
+  _id: ObjectId;
+  title: string;
+  description: string;
+  ingredients: Ingredient[],
+  steps: Step[],
+}
+
+export interface Ingredient {
+  id: number;
+  amount: { value: number; unit: string };
+  name: string;
+}
+
+export interface Step {
+ id: number;
+ value: string;
+}
+
+export default class Recipes extends MongoDataSource<Recipes> {
+  async setRecipe(recipe: Omit<Recipe, "_id">) {
+    return this.collection.insertOne(recipe);
+  }
+
+  async getRecipe(id: ObjectId) {
+    return this.findOneById(id);
+  }
+
+  async getRecipes() {
+    const response = await this.collection.find().toArray();
+    return Array.isArray(response) ? response : [];
+  }
+}
+
 export const RecipeArticle = [
   {
     id: 1,
