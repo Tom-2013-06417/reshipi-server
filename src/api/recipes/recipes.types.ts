@@ -2,18 +2,8 @@ import { gql } from "apollo-server-core";
 
 export const RecipeTypes = gql`
   type Query {
-    recipeArticles: [RecipeArticle]
-    recipeArticle(id: ID!): RecipeArticle
-  }
-
-  type RecipeArticle {
-    id: Int!
-    title: String
-    seoDescription: String
-    seoUrl: String
-    body: String
-    author: String
-    recipe: Recipe
+    recipes: [Recipe]
+    recipe(id: ID!): Recipe
   }
 
   type Recipe {
