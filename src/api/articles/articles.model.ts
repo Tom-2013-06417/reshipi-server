@@ -11,6 +11,10 @@ export interface Article {
 }
 
 export default class Articles extends MongoDataSource<Articles> {
+  async setArticle(article: Omit<Article, '_id'>) {
+    return this.collection.insertOne(article);
+  }
+
   async getArticle(id: ObjectId) {
     return this.findOneById(id);
   }

@@ -1,4 +1,4 @@
-import { articleResolver, articlesResolver } from './articles';
+import { articleResolver, articlesResolver, createArticle } from './articles';
 import { recipeResolver, recipesResolver } from './recipes';
 
 export const resolvers = {
@@ -7,5 +7,8 @@ export const resolvers = {
     recipe: recipeResolver,
     article: articleResolver,
     articles: articlesResolver,
+  },
+  Mutation: {
+    createArticle,
   }
 }

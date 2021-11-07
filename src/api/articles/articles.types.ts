@@ -15,4 +15,20 @@ export const ArticleTypes = gql`
     author: String
     recipe: Recipe
   }
+
+  type Mutation {
+    createArticle(article: ArticleRequest): ArticleResponse!
+  }
+
+  input ArticleRequest {
+    title: String
+    seoDescription: String
+    body: String
+  }
+
+  type ArticleResponse {
+    status: Boolean!
+    message: String
+    body: [Article]
+  }
 `;
