@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "src",
     "forceConsistentCasingInFileNames": true,
-    "module": "ESNext",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": false,

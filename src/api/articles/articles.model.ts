@@ -10,8 +10,10 @@ export interface Article {
   author: string;
 }
 
+export type ArticleRequest = Omit<Article, '_id' | 'seoUrl' | 'author'>;
+
 export default class Articles extends MongoDataSource<Article> {
-  async setArticle(article: Omit<Article, '_id'>) {
+  async setArticle(article: ArticleRequest) {
     return this.collection.insertOne(article);
   }
 

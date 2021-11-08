@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import Recipes, { Recipe } from './recipes.model';
+import Recipes, { Recipe, RecipeRequest } from './recipes.model';
 
 interface Context {
   dataSources: {
@@ -15,14 +15,14 @@ interface Response<Document> {
 }
 
 export const recipesResolver = async (
-  _,
-  args,
+  _: undefined,
+  __: undefined,
   { dataSources: { recipes } }: Context,
 ) => recipes.getRecipes();
 
 export const recipeResolver = (
-  _,
-  args,
+  _: undefined,
+  args: { id?: string },
   { dataSources: { recipes } }: Context,
 ) => {
   if (args.id) {
@@ -34,8 +34,8 @@ export const recipeResolver = (
 };
 
 export const createRecipe = async (
-  _,
-  args,
+  _: undefined,
+  args: { recipe: RecipeRequest },
   { dataSources: { recipes } }: Context,
 ): Promise<Response<Recipe>> => {
   const recipe = { ...args.recipe };

@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import Articles, { Article } from './articles.model';
+import Articles, { Article, ArticleRequest } from './articles.model';
 
 interface Context {
   dataSources: {
@@ -15,13 +15,13 @@ interface Response<Document> {
 }
 
 export const articlesResolver = async (
-  _,
-  args,
+  _: undefined,
+  args: undefined,
   { dataSources: { articles } }: Context,
 ) => articles.getArticles();
 export const articleResolver = (
-  _,
-  args,
+  _: undefined,
+  args: { id?: string },
   { dataSources: { articles } }: Context,
 ) => {
   if (args.id) {
@@ -33,8 +33,8 @@ export const articleResolver = (
 };
 
 export const createArticle = async (
-  _,
-  args,
+  _: undefined,
+  args: { article: ArticleRequest },
   { dataSources: { articles } }: Context,
 ): Promise<Response<Article>> => {
   const article = { ...args.article };
@@ -44,6 +44,6 @@ export const createArticle = async (
     message: result.acknowledged
       ? 'Successfully created an article'
       : 'Failed to create an article',
-    body: [{ _id: result.insertedId, ...article }],
+    body: [{ _id: result.insertedId, ...article, seoUrl: '', author: '' }],
   };
 };

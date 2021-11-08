@@ -20,8 +20,10 @@ export interface Recipe {
   steps: Step[];
 }
 
+export type RecipeRequest = Omit<Recipe, '_id'>;
+
 export default class Recipes extends MongoDataSource<Recipe> {
-  async setRecipe(recipe: Omit<Recipe, '_id'>) {
+  async setRecipe(recipe: RecipeRequest) {
     return this.collection.insertOne(recipe);
   }
 

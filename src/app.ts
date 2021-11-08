@@ -24,9 +24,13 @@ export default class App {
     this.port = port;
 
     const mongoDb = mongo;
-    mongoDb.connect().then(() => {
-      console.log('Connected to DB');
-    });
+    mongoDb
+      .connect()
+      .then(() => {
+        console.log('Connected to DB');
+      })
+      .catch(() => console.log('Unable to connect to DB'));
+
     this.db = mongoDb.db();
 
     this.httpServer = http.createServer(this.app);
