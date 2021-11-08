@@ -1,3 +1,3 @@
-export function toNumber(i: string) {
-    return parseInt(i);
+export default function toNumber(i: string) {
+  return parseInt(i, 10);
 }

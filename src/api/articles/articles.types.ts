@@ -1,4 +1,4 @@
-import { gql } from "apollo-server-core";
+import { gql } from 'apollo-server-core';
 
 export const ArticleTypes = gql`
   type Query {
@@ -32,3 +32,5 @@ export const ArticleTypes = gql`
     body: [Article]
   }
 `;
+
+export default ArticleTypes;

@@ -1,18 +1,22 @@
-import * as express from "express";
-import * as http from "http";
-import { ApolloServer } from "apollo-server-express";
-import { ApolloServerPluginDrainHttpServer, gql } from "apollo-server-core";
-import { schema } from "./api";
-import { mongo } from "./database/mongodb";
-import Articles from "./api/articles/articles.model";
-import { Db } from "mongodb";
-import Recipes from "./api/recipes/recipes.model";
+import * as express from 'express';
+import * as http from 'http';
+import { ApolloServer } from 'apollo-server-express';
+import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
+import { Db } from 'mongodb';
+import { schema } from './api';
+import { mongo } from './database/mongodb';
+import Articles from './api/articles/articles.model';
+import Recipes from './api/recipes/recipes.model';
 
-export class App {
+export default class App {
   private app: express.Application;
+
   private httpServer: http.Server;
+
   private port: number;
+
   private server: ApolloServer;
+
   private db: Db;
 
   constructor(port: number) {
@@ -21,7 +25,7 @@ export class App {
 
     const mongoDb = mongo;
     mongoDb.connect().then(() => {
-      console.log("Connected to DB");
+      console.log('Connected to DB');
     });
     this.db = mongoDb.db();
 
@@ -29,8 +33,8 @@ export class App {
     this.server = new ApolloServer({
       schema,
       dataSources: () => ({
-        articles: new Articles(this.db.collection("articles")),
-        recipes: new Recipes(this.db.collection("recipes")),
+        articles: new Articles(this.db.collection('articles')),
+        recipes: new Recipes(this.db.collection('recipes')),
       }),
       plugins: [
         ApolloServerPluginDrainHttpServer({ httpServer: this.httpServer }),
@@ -41,12 +45,12 @@ export class App {
   async listen() {
     await this.server.start();
     this.server.applyMiddleware({ app: this.app });
-    await new Promise<void>((resolve) =>
-      this.httpServer.listen({ port: this.port }, resolve)
+    await new Promise<void>(resolve =>
+      this.httpServer.listen({ port: this.port }, resolve),
     );
 
     console.log(
-      `🚀 Server ready at http://localhost:${this.port}${this.server.graphqlPath}`
+      `🚀 Server ready at http://localhost:${this.port}${this.server.graphqlPath}`,
     );
   }
 }

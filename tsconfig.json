@@ -1,12 +1,16 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "baseUrl": "src",
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
     "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": false,
+    "outDir": "./dist",
     "pretty": true,
     "sourceMap": true,
-    "target": "esnext",
-    "outDir": "./dist",
-    "baseUrl": "."
+    "strict": true,
+    "target": "esnext"
   },
   "include": [
     "src/**/*.ts"

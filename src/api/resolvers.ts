@@ -13,3 +13,5 @@ export const resolvers = {
     createRecipe,
   },
 };
+
+export default resolvers;

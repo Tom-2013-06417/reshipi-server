@@ -1,5 +1,5 @@
-import { MongoDataSource } from "apollo-datasource-mongodb";
-import { ObjectId } from "mongodb";
+import { MongoDataSource } from 'apollo-datasource-mongodb';
+import { ObjectId } from 'mongodb';
 
 export interface Article {
   _id: ObjectId;
@@ -10,7 +10,7 @@ export interface Article {
   author: string;
 }
 
-export default class Articles extends MongoDataSource<Articles> {
+export default class Articles extends MongoDataSource<Article> {
   async setArticle(article: Omit<Article, '_id'>) {
     return this.collection.insertOne(article);
   }
@@ -21,8 +21,6 @@ export default class Articles extends MongoDataSource<Articles> {
 
   async getArticles() {
     const response = await this.collection.find().toArray();
-    return Array.isArray(response)
-      ? response
-      : [];
+    return Array.isArray(response) ? response : [];
   }
 }

@@ -6,6 +6,9 @@
     "build": "tsc",
     "start": "nodemon",
     "start:prod": "nodemon ./dist/server.js",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "prettier-format": "prettier --config .prettierrc '**/*.ts' --write",
     "prod": "npm run build && npm run start:prod"
   },
   "nodemonConfig": {
@@ -32,7 +35,15 @@
   },
   "devDependencies": {
     "@types/express": "^4.16.1",
+    "@typescript-eslint/eslint-plugin": "^5.3.0",
+    "@typescript-eslint/parser": "^5.3.0",
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-prettier": "^4.0.0",
     "nodemon": "^1.18.10",
+    "prettier": "^2.4.1",
     "ts-node": "^8.6.1",
     "typescript": "^3.0.0"
   }

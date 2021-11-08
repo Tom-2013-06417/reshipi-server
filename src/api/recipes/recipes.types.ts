@@ -1,4 +1,4 @@
-import { gql } from "apollo-server-core";
+import { gql } from 'apollo-server-core';
 
 export const RecipeTypes = gql`
   type Query {
@@ -56,3 +56,5 @@ export const RecipeTypes = gql`
     body: [Recipe]
   }
 `;
+
+export default RecipeTypes;
