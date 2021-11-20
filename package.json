@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "build": "tsc",
-    "generate:schema": "apollo schema:download graphql-schema.json",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "prettier-format": "prettier --config .prettierrc '**/*.ts' --write",
@@ -38,7 +37,6 @@
     "@types/express": "^4.16.1",
     "@typescript-eslint/eslint-plugin": "^5.3.0",
     "@typescript-eslint/parser": "^5.3.0",
-    "apollo": "^2.33.9",
     "eslint": "^8.2.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
