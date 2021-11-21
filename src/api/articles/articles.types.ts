@@ -3,7 +3,7 @@ import { gql } from 'apollo-server-core';
 export const ArticleTypes = gql`
   type Query {
     articles: [Article]
-    article(id: ID): Article
+    article(id: ID, seoUrl: String): Article
   }
 
   type Article {
@@ -12,8 +12,8 @@ export const ArticleTypes = gql`
     seoDescription: String!
     seoUrl: String!
     body: String!
-    author: String
-    recipe: Recipe
+    author: String!
+    recipe: Recipe!
   }
 
   type Mutation {

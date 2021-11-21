@@ -7,26 +7,26 @@ export const RecipeTypes = gql`
   }
 
   type Recipe {
-    title: String
-    description: String
-    ingredients: [Ingredient]
-    steps: [RecipeSteps]
+    title: String!
+    description: String!
+    ingredients: [Ingredient!]!
+    steps: [RecipeSteps!]!
   }
 
   type Ingredient {
     id: Int
-    amount: IngredientAmount
-    name: String
+    amount: IngredientAmount!
+    name: String!
   }
 
   type IngredientAmount {
-    value: Float
-    unit: String
+    value: Float!
+    unit: String!
   }
 
   type RecipeSteps {
     id: Int
-    value: String
+    value: String!
   }
 
   type Mutation {

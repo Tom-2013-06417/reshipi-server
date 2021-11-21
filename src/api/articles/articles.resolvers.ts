@@ -1,9 +1,11 @@
 import { ObjectId } from 'mongodb';
+import Recipes from '../recipes/recipes.model';
 import Articles, { Article, ArticleRequest } from './articles.model';
 
 interface Context {
   dataSources: {
     articles: Articles;
+    recipes: Recipes;
   };
 }
 
@@ -19,14 +21,27 @@ export const articlesResolver = async (
   args: undefined,
   { dataSources: { articles } }: Context,
 ) => articles.getArticles();
-export const articleResolver = (
+
+export const articleResolver = async (
   _: undefined,
-  args: { id?: string },
-  { dataSources: { articles } }: Context,
+  args: { id?: string; seoUrl?: string },
+  { dataSources: { articles, recipes } }: Context,
 ) => {
   if (args.id) {
     const id = new ObjectId(args.id);
     return articles.getArticle(id);
+  }
+
+  if (args.seoUrl) {
+    const article = await articles.getArticleBySeoUrl(args.seoUrl);
+    const recipe = await recipes.getRecipe(article.recipe);
+
+    const newArticle = {
+      ...article,
+      recipe,
+    };
+
+    return newArticle;
   }
 
   return undefined;

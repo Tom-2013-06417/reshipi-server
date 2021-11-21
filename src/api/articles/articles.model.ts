@@ -21,6 +21,10 @@ export default class Articles extends MongoDataSource<Article> {
     return this.findOneById(id);
   }
 
+  async getArticleBySeoUrl(seoUrl: string) {
+    return this.collection.findOne({ seoUrl });
+  }
+
   async getArticles() {
     const response = await this.collection.find().toArray();
     return Array.isArray(response) ? response : [];
