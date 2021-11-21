@@ -14,14 +14,13 @@ export const RecipeTypes = gql`
   }
 
   type Ingredient {
-    id: Int
-    amount: IngredientAmount!
+    amount: IngredientAmount
     name: String!
   }
 
   type IngredientAmount {
-    value: Float!
-    unit: String!
+    value: String
+    unit: String
   }
 
   type RecipeSteps {
