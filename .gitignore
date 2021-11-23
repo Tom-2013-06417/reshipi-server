@@ -4,9 +4,8 @@ node_modules
 /dist
 graphql-schema.json
 
-# local env files
-.env.local
-.env.*.local
+# Env files
+.env*
 
 # Log files
 npm-debug.log*

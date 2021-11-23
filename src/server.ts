@@ -1,6 +1,5 @@
 import App from './app';
+import { PORT } from './config';
 
-const PORT = 4000;
 const app = new App(PORT);
-
 app.listen();
