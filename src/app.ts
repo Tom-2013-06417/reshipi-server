@@ -1,23 +1,19 @@
-import * as express from 'express';
-import * as http from 'http';
+import { Server, createServer } from 'http';
+import express, { Express } from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import { Db } from 'mongodb';
 import { schema } from './api';
 import { mongo } from './database/mongodb';
-import Articles from './api/articles/articles.model';
-import Recipes from './api/recipes/recipes.model';
+import ArticlesModel from './api/articles/articles.model';
+import RecipesModel from './api/recipes/recipes.model';
 
 export default class App {
-  private app: express.Application;
-
-  private httpServer: http.Server;
-
-  private port: number;
-
-  private server: ApolloServer;
-
+  private app: Express;
   private db: Db;
+  private httpServer: Server;
+  private port: number;
+  private server: ApolloServer;
 
   constructor(port: number) {
     this.app = express();
@@ -32,13 +28,16 @@ export default class App {
       .catch(() => console.log('Unable to connect to DB'));
 
     this.db = mongoDb.db();
+    this.httpServer = createServer(this.app);
 
-    this.httpServer = http.createServer(this.app);
+    const articles = new ArticlesModel(this.db.collection('articles'));
+    const recipes = new RecipesModel(this.db.collection('recipes'));
+
     this.server = new ApolloServer({
       schema,
       dataSources: () => ({
-        articles: new Articles(this.db.collection('articles')),
-        recipes: new Recipes(this.db.collection('recipes')),
+        articles,
+        recipes,
       }),
       plugins: [
         ApolloServerPluginDrainHttpServer({ httpServer: this.httpServer }),
@@ -49,9 +48,9 @@ export default class App {
   async listen() {
     await this.server.start();
     this.server.applyMiddleware({ app: this.app });
-    await new Promise<void>(resolve =>
-      this.httpServer.listen({ port: this.port }, resolve),
-    );
+    await new Promise<void>(resolve => {
+      this.httpServer.listen({ port: this.port }, resolve);
+    });
 
     console.log(
       `🚀 Server ready at http://localhost:${this.port}${this.server.graphqlPath}`,

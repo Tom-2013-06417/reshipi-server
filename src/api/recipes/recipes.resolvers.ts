@@ -1,9 +1,9 @@
 import { ObjectId } from 'mongodb';
-import Recipes, { Recipe, RecipeRequest } from './recipes.model';
+import RecipesModel, { Recipe, RecipeRequest } from './recipes.model';
 
 interface Context {
   dataSources: {
-    recipes: Recipes;
+    recipes: RecipesModel;
   };
 }
 
@@ -38,13 +38,14 @@ export const createRecipe = async (
   args: { recipe: RecipeRequest },
   { dataSources: { recipes } }: Context,
 ): Promise<Response<Recipe>> => {
-  const recipe = { ...args.recipe };
+  const recipe: Recipe = { ...args.recipe, _id: new ObjectId() };
   const result = await recipes.setRecipe(recipe);
+
   return {
     status: result.acknowledged,
     message: result.acknowledged
       ? 'Successfully created an recipe'
       : 'Failed to create an recipe',
-    body: [{ _id: result.insertedId, ...recipe }],
+    body: [recipe],
   };
 };

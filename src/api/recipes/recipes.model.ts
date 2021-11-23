@@ -15,14 +15,16 @@ export interface Recipe {
   _id: ObjectId;
   title: string;
   description: string;
+  seoUrl: string;
+  author: string;
   ingredients: Ingredient[];
   steps: Step[];
 }
 
 export type RecipeRequest = Omit<Recipe, '_id'>;
 
-export default class Recipes extends MongoDataSource<Recipe> {
-  async setRecipe(recipe: RecipeRequest) {
+export default class RecipesModel extends MongoDataSource<Recipe> {
+  async setRecipe(recipe: Recipe) {
     return this.collection.insertOne(recipe);
   }
 

@@ -1,11 +1,11 @@
 import { ObjectId } from 'mongodb';
-import Recipes from '../recipes/recipes.model';
-import Articles, { Article, ArticleRequest } from './articles.model';
+import RecipesModel from '../recipes/recipes.model';
+import ArticlesModel, { Article, ArticleRequest } from './articles.model';
 
 interface Context {
   dataSources: {
-    articles: Articles;
-    recipes: Recipes;
+    articles: ArticlesModel;
+    recipes: RecipesModel;
   };
 }
 
@@ -34,7 +34,10 @@ export const articleResolver = async (
 
   if (args.seoUrl) {
     const article = await articles.getArticleBySeoUrl(args.seoUrl);
-    const recipe = await recipes.getRecipe(article.recipe);
+    const recipe =
+      article && article.recipe
+        ? await recipes.getRecipe(article.recipe._id)
+        : undefined;
 
     const newArticle = {
       ...article,
@@ -52,13 +55,19 @@ export const createArticle = async (
   args: { article: ArticleRequest },
   { dataSources: { articles } }: Context,
 ): Promise<Response<Article>> => {
-  const article = { ...args.article };
+  const article: Article = {
+    ...args.article,
+    seoUrl: 'stuff', // TODO: Process
+    author: 'test', // TODO: Wire up
+    _id: new ObjectId(),
+  };
   const result = await articles.setArticle(article);
+
   return {
     status: result.acknowledged,
     message: result.acknowledged
       ? 'Successfully created an article'
       : 'Failed to create an article',
-    body: [{ _id: result.insertedId, ...article, seoUrl: '', author: '' }],
+    body: [article],
   };
 };

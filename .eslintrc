@@ -16,8 +16,10 @@
   ],
   "rules": {
     "import/extensions": ["error", "ignorePackages", { "ts": "never" }],
+    "lines-between-class-members": 0,
     "no-console": ["error", {
       "allow": ["warn", "error", "log", "group", "groupEnd"]
-    }]
+    }],
+    "no-underscore-dangle": "off"
   }
 }

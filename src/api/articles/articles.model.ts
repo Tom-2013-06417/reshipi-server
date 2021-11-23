@@ -1,5 +1,6 @@
 import { MongoDataSource } from 'apollo-datasource-mongodb';
 import { ObjectId } from 'mongodb';
+import { Recipe } from '../recipes/recipes.model';
 
 export interface Article {
   _id: ObjectId;
@@ -8,12 +9,13 @@ export interface Article {
   seoUrl: string;
   body: string;
   author: string;
+  recipe?: Recipe;
 }
 
 export type ArticleRequest = Omit<Article, '_id' | 'seoUrl' | 'author'>;
 
-export default class Articles extends MongoDataSource<Article> {
-  async setArticle(article: ArticleRequest) {
+export default class ArticlesModel extends MongoDataSource<Article> {
+  async setArticle(article: Article) {
     return this.collection.insertOne(article);
   }
 
