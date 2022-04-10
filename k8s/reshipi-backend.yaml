@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reshipi-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reshipi-backend
+  template:
+    metadata:
+      labels:
+        app: reshipi-backend
+    spec:
+      containers:
+        - name: reshipi-backend
+          image: reshipi:server
+          ports:
+            - containerPort: 4000
+          env:
+            - name: MONGO_HOST
+              value: "mongodb://mongo"
+            - name: MONGO_PORT
+              value: "27017"
+            - name: MONGO_DATABASE
+              value: "reshipi"
+          imagePullPolicy: IfNotPresent
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: reshipi-backend
+spec:
+  selector:
+    app: reshipi-backend
+  ports:
+    - port: 4000
+      targetPort: 4000
+  type: LoadBalancer
