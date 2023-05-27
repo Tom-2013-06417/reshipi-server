@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb';
-import RecipesModel from '../recipes/recipes.model';
-import ArticlesModel, { Article, ArticleRequest } from './articles.model';
+import { throwHttpGraphQLError } from 'apollo-server-core/dist/runHttpQuery';
+import RecipesModel, { Recipe } from '../recipes/recipes.model';
+import ArticlesModel, { Article, ArticleRequest, RawArticle } from './articles.model';
 
 interface Context {
   dataSources: {
@@ -36,7 +37,7 @@ export const articleResolver = async (
     const article = await articles.getArticleBySeoUrl(args.seoUrl);
     const recipe =
       article && article.recipe
-        ? await recipes.getRecipe(article.recipe._id)
+        ? await recipes.getRecipe(article.recipe)
         : undefined;
 
     const newArticle = {
@@ -53,21 +54,33 @@ export const articleResolver = async (
 export const createArticle = async (
   _: undefined,
   args: { article: ArticleRequest },
-  { dataSources: { articles } }: Context,
+  { dataSources: { articles, recipes } }: Context,
 ): Promise<Response<Article>> => {
-  const article: Article = {
+  // Create the recipe first if provided
+  const { recipe: rawRecipe } = args.article;
+  const recipeResult = await recipes.setRecipe(rawRecipe);
+  if (!recipeResult.acknowledged) {
+    return throwHttpGraphQLError(500, [new Error('Error creating recipe')]);
+  }
+  const recipeId = recipeResult.insertedId;
+  const recipe: Recipe = {...rawRecipe, _id: recipeId};
+
+  // Create the article next
+  const rawArticle: RawArticle = {
     ...args.article,
     seoUrl: 'stuff', // TODO: Process
     author: 'test', // TODO: Wire up
     _id: new ObjectId(),
+    recipe: recipeId
   };
-  const result = await articles.setArticle(article);
+
+  const articleResult = await articles.setArticle(rawArticle);
 
   return {
-    status: result.acknowledged,
-    message: result.acknowledged
+    status: articleResult.acknowledged,
+    message: articleResult.acknowledged
       ? 'Successfully created an article'
       : 'Failed to create an article',
-    body: [article],
+    body: [{...rawArticle, recipe}],
   };
 };
