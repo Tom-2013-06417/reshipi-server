@@ -24,6 +24,7 @@ export const ArticleTypes = gql`
     title: String
     seoDescription: String
     body: String
+    recipe: RecipeRequest
   }
 
   type ArticleResponse {
