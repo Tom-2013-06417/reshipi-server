@@ -2,6 +2,7 @@ import { ObjectId } from 'mongodb';
 import { throwHttpGraphQLError } from 'apollo-server-core/dist/runHttpQuery';
 import RecipesModel, { Recipe } from '../recipes/recipes.model';
 import ArticlesModel, { Article, ArticleRequest, RawArticle } from './articles.model';
+import { generateSEOUrl } from '../../utils';
 
 interface Context {
   dataSources: {
@@ -68,7 +69,7 @@ export const createArticle = async (
   // Create the article next
   const rawArticle: RawArticle = {
     ...args.article,
-    seoUrl: 'stuff', // TODO: Process
+    seoUrl: generateSEOUrl(args.article.title),
     author: 'test', // TODO: Wire up
     _id: new ObjectId(),
     recipe: recipeId
