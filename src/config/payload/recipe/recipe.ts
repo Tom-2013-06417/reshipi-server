@@ -66,6 +66,12 @@ export const RecipesCollection: CollectionConfig = {
       ],
     },
   ],
+  admin: {
+    useAsTitle: 'title',
+  },
+  access: {
+    read: () => true,
+  },
 };
 
 export default RecipesCollection;
