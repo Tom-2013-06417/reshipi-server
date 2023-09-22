@@ -1,8 +1,8 @@
 .DS_Store
 docker
 node_modules
-/dist
-graphql-schema.json
+build
+dist
 
 # Env files
 .env*
