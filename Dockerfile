@@ -20,6 +20,6 @@ RUN yarn install --production
 COPY --from=builder /home/node/dist ./dist
 COPY --from=builder /home/node/build ./build
 
-EXPOSE 3000
+EXPOSE 4000
 
 CMD ["node", "dist/server.js"]
