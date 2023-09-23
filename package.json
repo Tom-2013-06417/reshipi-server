@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "payload build",
+    "build:server": "tsc",
+    "build:payload": "PAYLOAD_CONFIG_PATH=src/payload.config.ts payload build",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "prettier-format": "prettier --config .prettierrc '**/*.ts' --write",
