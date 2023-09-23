@@ -1,18 +1,12 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": "src",
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "CommonJS",
-    "moduleResolution": "node",
-    "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": false,
-    "outDir": "./dist",
+    "module": "commonjs",
+    "outDir": "dist",
     "pretty": true,
-    "sourceMap": true,
     "strict": true,
     "target": "es6",
+    "skipLibCheck": true
   },
   "include": [
     "src/**/*.ts"
