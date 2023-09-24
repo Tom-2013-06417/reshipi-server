@@ -27,7 +27,7 @@ export const ArticlesCollection: CollectionConfig = {
       },
       admin: {
         readOnly: true,
-        hidden: true,
+        condition: data => !!data.seo_url,
       },
     },
     {
