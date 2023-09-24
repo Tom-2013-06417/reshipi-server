@@ -1,17 +1,7 @@
 services:
-  reshipi-db:
-    build: ./src/database/
-    image: reshipi:db
-    container_name: reshipi-db
-    ports:
-      - 27017:27017
-    volumes:
-      - ./docker/db:/data/db
   reshipi-server:
     build: .
     image: reshipi:server
     container_name: reshipi-server
     ports:
-      - 4000:4000
-    depends_on:
-      - reshipi-db
+      - 3000:3000

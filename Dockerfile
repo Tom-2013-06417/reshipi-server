@@ -7,7 +7,7 @@ COPY package*.json ./
 
 COPY . .
 RUN yarn
-RUN yarn build:server && yarn build:payload
+RUN yarn build
 
 FROM base as runtime
 
