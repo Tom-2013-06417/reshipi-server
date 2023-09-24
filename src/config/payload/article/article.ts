@@ -27,6 +27,7 @@ export const ArticlesCollection: CollectionConfig = {
       },
       admin: {
         readOnly: true,
+        hidden: true,
       },
     },
     {
