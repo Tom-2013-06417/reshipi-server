@@ -1,6 +1,5 @@
-export const PORT = process.env.APP_PORT
-  ? parseInt(process.env.APP_PORT, 10)
-  : 4000;
+export const HOST = process.env.APP_HOST || '0.0.0.0';
+export const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 export const {
   MONGO_HOST,
   MONGO_PORT,

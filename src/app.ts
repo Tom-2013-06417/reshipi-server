@@ -1,16 +1,18 @@
 import express, { Express } from 'express';
 import { Server, createServer } from 'http';
 import payload from 'payload';
-import { MONGO_URI, PAYLOAD_SECRET } from './config';
+import { HOST, MONGO_URI, PAYLOAD_SECRET } from './config';
 
 export default class App {
   private app: Express;
   private httpServer: Server;
+  private host: string;
   private port: number;
 
   constructor(port: number) {
     this.app = express();
     this.port = port;
+    this.host = HOST;
 
     this.httpServer = createServer(this.app);
 
@@ -27,7 +29,7 @@ export default class App {
 
   async listen() {
     await new Promise<void>(resolve => {
-      this.httpServer.listen({ port: this.port }, resolve);
+      this.httpServer.listen({ host: this.host, port: this.port }, resolve);
     });
 
     console.log(`🚀 Server ready at http://localhost:${this.port}`);
