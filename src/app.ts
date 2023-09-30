@@ -32,6 +32,6 @@ export default class App {
       this.httpServer.listen({ host: this.host, port: this.port }, resolve);
     });
 
-    console.log(`🚀 Server ready at http://localhost:${this.port}`);
+    console.log(`🚀 Server ready at ${this.host}:${this.port}`);
   }
 }
