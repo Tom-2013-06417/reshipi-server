@@ -6,6 +6,7 @@ dist
 
 # Env files
 .env*
+!.env.template
 
 # Log files
 npm-debug.log*

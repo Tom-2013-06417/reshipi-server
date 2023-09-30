@@ -23,7 +23,7 @@
     "watch": [
       "src"
     ],
-    "exec": "ts-node -r dotenv/config src/server.ts",
+    "exec": "ts-node -r dotenv/config src/server.ts dotenv_config_path=./.env.development",
     "ext": "ts"
   },
   "dependencies": {
