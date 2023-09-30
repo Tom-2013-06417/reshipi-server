@@ -20,3 +20,8 @@ export const GCS_CREDENTIALS = JSON.parse(
   atob(process.env.GCS_CREDENTIALS || 'e30='),
 );
 export const GCS_BUCKET = process.env.GCS_BUCKET || 'reshipi-media-dev';
+
+// Email
+export const SENDGRID_FROM_NAME = process.env.SENDGRID_FROM_NAME || 'Reshipi';
+export const SENDGRID_FROM_EMAIL = process.env.SENDGRID_FROM_EMAIL || 'noreply@reshipi.app';
+export const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY || '';

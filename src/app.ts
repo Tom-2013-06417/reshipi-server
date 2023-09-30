@@ -1,7 +1,15 @@
 import express, { Express } from 'express';
 import { Server, createServer } from 'http';
 import payload from 'payload';
-import { HOST, MONGO_URI, PAYLOAD_SECRET } from './config';
+import nodemailerSendgrid from 'nodemailer-sendgrid';
+import {
+  HOST,
+  MONGO_URI,
+  PAYLOAD_SECRET,
+  SENDGRID_API_KEY,
+  SENDGRID_FROM_EMAIL,
+  SENDGRID_FROM_NAME,
+} from './config';
 
 export default class App {
   private app: Express;
@@ -16,11 +24,31 @@ export default class App {
 
     this.httpServer = createServer(this.app);
 
+    const emailConfig =
+      process.env.NODE_ENV === 'production'
+        ? {
+            email: {
+              transportOptions: nodemailerSendgrid({
+                apiKey: SENDGRID_API_KEY,
+              }),
+              fromAddress: SENDGRID_FROM_EMAIL,
+              fromName: SENDGRID_FROM_NAME,
+            },
+          }
+        : {
+            email: {
+              fromAddress: SENDGRID_FROM_EMAIL,
+              fromName: SENDGRID_FROM_NAME,
+              logMockCredentials: true,
+            },
+          };
+
     payload
       .init({
         secret: PAYLOAD_SECRET,
         mongoURL: MONGO_URI,
         express: this.app,
+        ...emailConfig,
       })
       .then(() => {
         console.log('Connected to Payload');
