@@ -1,7 +1,7 @@
 import express, { Express } from 'express';
 import { Server, createServer } from 'http';
-import payload from 'payload';
 import nodemailerSendgrid from 'nodemailer-sendgrid';
+import payload from 'payload';
 import {
   HOST,
   MONGO_URI,

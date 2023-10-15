@@ -3,9 +3,10 @@ import path from 'path';
 import { buildConfig } from 'payload/config';
 import { GcsAdapter } from './config/payload-adapters/google-cloud-storage';
 import { ArticlesCollection } from './config/payload/article/article';
-import { IngredientsCollection } from './config/payload/ingredients/ingredient';
+import { IngredientsCollection } from './config/payload/ingredient/ingredient';
 import { MediaCollection } from './config/payload/media/media';
 import { RecipesCollection } from './config/payload/recipe/recipe';
+import { UsersCollection } from './config/payload/user/user';
 
 export default buildConfig({
   collections: [
@@ -13,6 +14,7 @@ export default buildConfig({
     IngredientsCollection,
     MediaCollection,
     RecipesCollection,
+    UsersCollection,
   ],
   plugins: [
     cloudStorage({

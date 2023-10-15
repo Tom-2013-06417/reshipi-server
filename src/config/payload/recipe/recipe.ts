@@ -29,29 +29,30 @@ export const RecipesCollection: CollectionConfig = {
       },
     },
     {
-      name: 'author',
-      type: 'relationship',
-      relationTo: 'users',
-      required: true,
-      hasMany: false,
-    },
-    {
       name: 'ingredients',
       type: 'array',
+      required: true,
       fields: [
         {
-          name: 'ingredient',
-          type: 'relationship',
-          relationTo: 'ingredients',
-          hasMany: false,
-        },
-        {
-          name: 'amount',
-          type: 'number',
-        },
-        {
-          name: 'unit',
-          type: 'text',
+          type: 'row',
+          fields: [
+            {
+              name: 'ingredient',
+              type: 'relationship',
+              relationTo: 'ingredients',
+              required: true,
+              hasMany: false,
+              index: true,
+            },
+            {
+              name: 'amount',
+              type: 'number',
+            },
+            {
+              name: 'unit',
+              type: 'text',
+            },
+          ],
         },
       ],
     },

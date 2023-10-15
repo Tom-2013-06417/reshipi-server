@@ -12,6 +12,9 @@ export const IngredientsCollection: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
   },
+  access: {
+    read: () => true,
+  },
 };
 
 export default IngredientsCollection;

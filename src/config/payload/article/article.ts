@@ -31,6 +31,12 @@ export const ArticlesCollection: CollectionConfig = {
       },
     },
     {
+      name: 'author',
+      type: 'relationship',
+      relationTo: 'users',
+      required: true,
+    },
+    {
       name: 'content',
       type: 'richText',
       required: true,
