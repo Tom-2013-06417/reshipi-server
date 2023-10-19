@@ -42,6 +42,9 @@ export const MediaCollection: CollectionConfig = {
       ],
     },
   ],
+  access: {
+    read: () => true,
+  },
 };
 
 export default MediaCollection;
