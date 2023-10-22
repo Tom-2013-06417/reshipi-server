@@ -21,6 +21,7 @@ export default buildConfig({
       collections: {
         media: {
           adapter: GcsAdapter,
+          disablePayloadAccessControl: true,
         },
       },
     }),
