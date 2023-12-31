@@ -31,6 +31,10 @@ export const ArticlesCollection: CollectionConfig = {
       },
     },
     {
+      name: 'seo_thumbnail',
+      type: 'text',
+    },
+    {
       name: 'author',
       type: 'relationship',
       relationTo: 'users',
