@@ -29,6 +29,10 @@ export const RecipesCollection: CollectionConfig = {
       },
     },
     {
+      name: 'defaultServingSize',
+      type: 'number',
+    },
+    {
       name: 'ingredients',
       type: 'array',
       required: true,

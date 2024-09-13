@@ -8,6 +8,12 @@ export const IngredientsCollection: CollectionConfig = {
       type: 'text',
       required: true,
     },
+    {
+      name: 'type',
+      type: 'relationship',
+      relationTo: 'ingredient-types',
+      required: true,
+    },
   ],
   admin: {
     useAsTitle: 'name',
